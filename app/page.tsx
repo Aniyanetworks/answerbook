@@ -8,6 +8,7 @@ import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GHLFormEmbed from "@/components/GHLFormEmbed";
+import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 import {
@@ -174,7 +175,7 @@ export default function HomePage() {
       <LocalBusinessJsonLd />
       <Hero
         variant="home"
-        headline="Stop losing jobs to missed calls and slow follow-up."
+        headlineLines={["Stop losing jobs to", "missed calls and slow follow-up."]}
         subhead="A done-for-you automation system that answers missed calls, follows up on new leads in minutes, reminds customers about appointments, and asks for reviews automatically — all for one flat monthly price."
         primaryCtaLabel="Get Started — $397/mo"
         primaryCtaHref="#get-started"
@@ -197,8 +198,8 @@ export default function HomePage() {
         />
       </div>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
+      <section className="bg-linear-to-b from-surface to-white px-4 py-20 sm:px-6">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
             Built for your trade
           </h2>
@@ -206,20 +207,21 @@ export default function HomePage() {
             Dedicated setups with niche-specific messaging for these
             contractor types.
           </p>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+        </Reveal>
+        <RevealGroup className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
           {niches.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="rounded-xl border border-border bg-white p-6 transition-shadow hover:shadow-md"
-            >
-              <h3 className="text-lg font-semibold text-navy-900">{n.title}</h3>
-              <p className="mt-2 text-sm text-muted">{n.description}</p>
-              <p className="mt-4 text-sm font-medium text-accent">Learn more &rarr;</p>
-            </Link>
+            <RevealItem key={n.href}>
+              <Link
+                href={n.href}
+                className="block h-full rounded-xl border border-border bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <h3 className="text-lg font-semibold text-navy-900">{n.title}</h3>
+                <p className="mt-2 text-sm text-muted">{n.description}</p>
+                <p className="mt-4 text-sm font-medium text-accent">Learn more &rarr;</p>
+              </Link>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </section>
 
       <PricingCallout ctaHref="#get-started" />
@@ -228,8 +230,8 @@ export default function HomePage() {
 
       <FAQAccordion items={faqs} />
 
-      <section id="get-started" className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-xl text-center">
+      <section id="get-started" className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
+        <Reveal className="mx-auto max-w-xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
             Get started today
           </h2>
@@ -237,8 +239,8 @@ export default function HomePage() {
             Tell us about your business and we&apos;ll reach out to get your
             automation system live.
           </p>
-        </div>
-        <div className="mt-10">
+        </Reveal>
+        <div className="mx-auto mt-10 max-w-3xl">
           <GHLFormEmbed formId={siteConfig.ghl.formIds.home} title="Get Started Form" />
         </div>
       </section>

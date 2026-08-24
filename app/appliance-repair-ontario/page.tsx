@@ -7,6 +7,7 @@ import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GHLFormEmbed from "@/components/GHLFormEmbed";
+import { Reveal } from "@/components/Reveal";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -148,7 +149,7 @@ export default function ApplianceRepairPage() {
     <>
       <Hero
         variant="appliance"
-        headline="Never miss another appliance repair call again."
+        headlineLines={["Never miss another", "appliance repair call again."]}
         subhead="Automated missed-call recovery, fast diagnostic follow-up, and review requests built specifically for Ontario appliance repair technicians — repair only, not retail or installs."
         primaryCtaLabel="Get Started — $397/mo"
         primaryCtaHref="#get-started"
@@ -180,8 +181,8 @@ export default function ApplianceRepairPage() {
 
       <FAQAccordion items={faqs} />
 
-      <section id="get-started" className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-xl text-center">
+      <section id="get-started" className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
+        <Reveal className="mx-auto max-w-xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
             Get your repair business set up
           </h2>
@@ -189,8 +190,8 @@ export default function ApplianceRepairPage() {
             Tell us about your business and we&apos;ll get your automation
             system live.
           </p>
-        </div>
-        <div className="mt-10">
+        </Reveal>
+        <div className="mx-auto mt-10 max-w-3xl">
           <GHLFormEmbed
             formId={siteConfig.ghl.formIds.applianceRepair}
             title="Appliance Repair Get Started Form"

@@ -1,3 +1,8 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { fadeUp, viewportOnce } from "@/lib/motion";
+
 interface CTASectionProps {
   id?: string;
   heading: string;
@@ -14,8 +19,14 @@ export default function CTASection({
   ctaHref,
 }: CTASectionProps) {
   return (
-    <section id={id} className="bg-navy-900">
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6">
+    <section id={id} className="animate-cta-gradient">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={fadeUp}
+        className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6"
+      >
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
           {heading}
         </h2>
@@ -30,7 +41,7 @@ export default function CTASection({
         >
           {ctaLabel}
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 }
