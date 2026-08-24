@@ -5,6 +5,7 @@ import { useState } from "react";
 import { siteConfig } from "@/lib/config";
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/hvac-ontario", label: "HVAC" },
   { href: "/appliance-repair-ontario", label: "Appliance Repair" },
   { href: "/plumbing-ontario", label: "Plumbing" },
