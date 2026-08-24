@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import { PhoneIcon } from "@/components/icons";
+import { siteConfig } from "@/lib/config";
 
 // Query params GHL's hosted form will read into matching hidden fields
 // (configure hidden fields with these exact keys in the GHL form builder).
@@ -44,10 +46,18 @@ export default function GHLFormEmbed({
   }, []);
 
   if (!formId) {
+    // Shown until NEXT_PUBLIC_GHL_FORM_ID_* is set in the environment — a
+    // direct call button reads as a real CTA instead of a dead-end notice.
     return (
-      <div className="rounded-lg border border-dashed border-border bg-surface p-8 text-center text-sm text-muted">
-        {/* Shown until NEXT_PUBLIC_GHL_FORM_ID_* is set in the environment. */}
-        Form unavailable — GHL form ID not configured for &ldquo;{title}&rdquo;.
+      <div className={`flex flex-col items-center gap-4 rounded-lg border border-border bg-surface p-10 text-center ${className}`}>
+        <p className="text-sm text-muted">Ready to get started? Give us a call.</p>
+        <a
+          href={`tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`}
+          className="inline-flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+        >
+          <PhoneIcon width={18} height={18} />
+          Call {siteConfig.contact.phone}
+        </a>
       </div>
     );
   }

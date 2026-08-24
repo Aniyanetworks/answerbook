@@ -18,8 +18,8 @@ export const siteConfig = {
 
   // TODO: replace with real business contact details before launch.
   contact: {
-    phone: publicEnv(process.env.NEXT_PUBLIC_CONTACT_PHONE, "(555) 555-0100"),
-    email: publicEnv(process.env.NEXT_PUBLIC_CONTACT_EMAIL, "hello@ansghlsaas.com"),
+    phone: publicEnv(process.env.NEXT_PUBLIC_CONTACT_PHONE, "(437) 777-8844"),
+    email: publicEnv(process.env.NEXT_PUBLIC_CONTACT_EMAIL, "info@aniyanetworks.net"),
     addressLine: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_ADDRESS, "Ontario, Canada"),
   },
 
