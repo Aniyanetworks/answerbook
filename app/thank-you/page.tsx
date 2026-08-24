@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ConversionTracking from "@/components/ConversionTracking";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <section className="mx-auto flex max-w-2xl flex-col items-center px-4 py-28 text-center sm:px-6">
+      <ConversionTracking />
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
         <svg width="32" height="32" viewBox="0 0 20 20" fill="currentColor">
           <path

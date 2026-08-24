@@ -14,10 +14,17 @@ export default function Analytics() {
             src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
             strategy="afterInteractive"
           />
-          <Script id="ga4-init" strategy="afterInteractive">
+          {/* beforeInteractive: the gtag() stub must exist before any component
+              effect (e.g. ConversionTracking on /thank-you) can call it — an
+              afterInteractive inline script isn't guaranteed to run first.
+              Valid in the App Router root layout despite the lint rule below,
+              which predates App Router support (Next.js docs recommend this). */}
+          {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+          <Script id="ga4-init" strategy="beforeInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              window.gtag = gtag;
               gtag('js', new Date());
               gtag('config', '${ga4Id}');
               ${googleAdsId ? `gtag('config', '${googleAdsId}');` : ""}
@@ -32,10 +39,12 @@ export default function Analytics() {
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
             strategy="afterInteractive"
           />
-          <Script id="google-ads-init" strategy="afterInteractive">
+          {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+          <Script id="google-ads-init" strategy="beforeInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              window.gtag = gtag;
               gtag('js', new Date());
               gtag('config', '${googleAdsId}');
             `}
@@ -44,7 +53,8 @@ export default function Analytics() {
       )}
 
       {metaPixelId && (
-        <Script id="meta-pixel-init" strategy="afterInteractive">
+        // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
+        <Script id="meta-pixel-init" strategy="beforeInteractive">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

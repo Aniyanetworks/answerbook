@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  ...(siteConfig.search.googleSiteVerification && {
+    verification: { google: siteConfig.search.googleSiteVerification },
+  }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -38,12 +41,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <OrganizationJsonLd />
       </head>
       <body className="min-h-full flex flex-col">
+        <Analytics />
         <MotionConfig reducedMotion="user">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
         </MotionConfig>
-        <Analytics />
       </body>
     </html>
   );
