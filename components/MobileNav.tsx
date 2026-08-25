@@ -105,24 +105,28 @@ export default function MobileNav({ navLinks, ctaHref, ctaLabel }: MobileNavProp
     <button
       ref={buttonRef}
       type="button"
-      className="fixed right-4 top-4 z-70 flex h-10 w-10 items-center justify-center rounded-md sm:right-6 md:hidden"
+      className="fixed right-4 top-4 z-70 flex h-11 w-11 items-center justify-center rounded-full border border-black/5 bg-white/90 shadow-xl shadow-navy-900/10 backdrop-blur-md sm:right-6 sm:top-6 md:hidden"
       aria-label="Toggle menu"
       aria-expanded={open}
       onClick={handleToggle}
     >
+      {/* The button keeps its own light pill background at all times (open
+          or closed), so the lines stay a fixed dark color regardless of
+          whether it's sitting over the hero, page content, or the open
+          full-screen overlay — no color-swap logic needed. */}
       <span className="relative block h-4 w-6">
         <motion.span
-          className={`absolute left-0 top-0 block h-0.5 w-6 rounded-full ${open ? "bg-white" : "bg-navy-900"}`}
+          className="absolute left-0 top-0 block h-0.5 w-6 rounded-full bg-navy-900"
           animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
           transition={{ duration: 0.25, ease: easeOut }}
         />
         <motion.span
-          className={`absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 rounded-full ${open ? "bg-white" : "bg-navy-900"}`}
+          className="absolute left-0 top-1/2 block h-0.5 w-6 -translate-y-1/2 rounded-full bg-navy-900"
           animate={open ? { opacity: 0 } : { opacity: 1 }}
           transition={{ duration: 0.15 }}
         />
         <motion.span
-          className={`absolute bottom-0 left-0 block h-0.5 w-6 rounded-full ${open ? "bg-white" : "bg-navy-900"}`}
+          className="absolute bottom-0 left-0 block h-0.5 w-6 rounded-full bg-navy-900"
           animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
           transition={{ duration: 0.25, ease: easeOut }}
         />
@@ -152,7 +156,8 @@ export default function MobileNav({ navLinks, ctaHref, ctaLabel }: MobileNavProp
                 className="fixed inset-0 z-50 bg-navy-900 md:hidden"
                 style={{
                   backgroundImage:
-                    "radial-gradient(circle at 15% 20%, rgba(47,111,237,0.35), transparent 45%), radial-gradient(circle at 85% 0%, rgba(245,166,35,0.18), transparent 40%)",
+                    "radial-gradient(circle at 15% 20%, rgba(168,229,5,0.22), transparent 45%), radial-gradient(circle at 85% 0%, rgba(157,141,255,0.25), transparent 40%), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+                  backgroundSize: "auto, auto, 48px 48px, 48px 48px",
                 }}
               >
                 <motion.nav
@@ -177,7 +182,7 @@ export default function MobileNav({ navLinks, ctaHref, ctaLabel }: MobileNavProp
                     <Link
                       href={ctaHref}
                       onClick={() => setOpen(false)}
-                      className="rounded-md bg-accent px-8 py-3.5 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+                      className="rounded-full bg-accent px-8 py-3.5 text-lg font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
                     >
                       {ctaLabel}
                     </Link>

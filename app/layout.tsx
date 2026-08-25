@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Sora } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -11,6 +11,12 @@ import { siteConfig } from "@/lib/config";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +42,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${sora.variable} h-full antialiased`}>
       <head>
         <OrganizationJsonLd />
       </head>
@@ -44,7 +50,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Analytics />
         <MotionConfig reducedMotion="user">
           <Header />
-          <main className="flex-1">{children}</main>
+          {/* Header now floats (position: fixed) over page content instead of
+              sitting in normal flow, so every page needs this top clearance.
+              Hero cancels it with a matching negative margin so its own
+              background can bleed up behind the floating nav — see Hero.tsx. */}
+          <main className="flex-1 pt-28">{children}</main>
           <Footer />
         </MotionConfig>
       </body>

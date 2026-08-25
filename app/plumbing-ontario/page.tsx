@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
 import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import GHLFormEmbed from "@/components/GHLFormEmbed";
-import { Reveal } from "@/components/Reveal";
+import GetStartedSection from "@/components/GetStartedSection";
+import PageGlowBackground from "@/components/PageGlowBackground";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -69,6 +70,11 @@ const features = [
       "The whole system runs in a sub-account under your business — you keep the customer relationships and data.",
   },
 ];
+
+const steps = features.slice(0, 3).map((f) => ({
+  title: f.title,
+  description: f.description,
+}));
 
 const problems = [
   {
@@ -147,10 +153,12 @@ const faqs = [
 export default function PlumbingPage() {
   return (
     <>
+      <PageGlowBackground />
       <Hero
         variant="plumbing"
         headlineLines={["Never miss another", "emergency plumbing call again."]}
         subhead="Automated missed-call recovery, fast quote follow-up, and review requests built specifically for Ontario residential and emergency plumbing companies."
+        checklist={features.slice(0, 4).map((f) => f.title)}
         primaryCtaLabel="Get Started — $397/mo"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
@@ -165,12 +173,18 @@ export default function PlumbingPage() {
       />
 
       <div id="how-it-works">
-        <ProblemSolution
-          heading="The problems costing plumbing contractors jobs"
-          subheading="Emergency calls and quote requests don't wait — and neither should your follow-up."
-          items={problems}
+        <HowItWorksSteps
+          heading="How it works"
+          subheading="From missed call to booked job — automatically."
+          steps={steps}
         />
       </div>
+
+      <ProblemSolution
+        heading="The problems costing plumbing contractors jobs"
+        subheading="Emergency calls and quote requests don't wait — and neither should your follow-up."
+        items={problems}
+      />
 
       <PricingCallout ctaHref="#get-started" />
 
@@ -181,23 +195,18 @@ export default function PlumbingPage() {
 
       <FAQAccordion items={faqs} />
 
-      <section id="get-started" className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
-        <Reveal className="mx-auto max-w-xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-            Get your plumbing business set up
-          </h2>
-          <p className="mt-4 text-lg text-muted">
-            Tell us about your business and we&apos;ll get your automation
-            system live.
-          </p>
-        </Reveal>
-        <div className="mx-auto mt-10 max-w-3xl">
-          <GHLFormEmbed
-            formId={siteConfig.ghl.formIds.plumbing}
-            title="Plumbing Get Started Form"
-          />
-        </div>
-      </section>
+      <GetStartedSection
+        heading="Get your plumbing business set up"
+        subheading="Tell us about your business and we'll get your automation system live."
+        bullets={[
+          "Missed-call text-back (automatic, 24/7)",
+          "Speed-to-lead follow-up sequences",
+          "Appointment reminders (SMS + email)",
+          "Automated review requests after every job",
+        ]}
+        formId={siteConfig.ghl.formIds.plumbing}
+        formTitle="Plumbing Get Started Form"
+      />
 
       <CTASection
         heading="Ready to stop losing plumbing jobs to slow follow-up?"

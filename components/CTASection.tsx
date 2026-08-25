@@ -19,7 +19,7 @@ export default function CTASection({
   ctaHref,
 }: CTASectionProps) {
   return (
-    <section id={id} className="animate-cta-gradient">
+    <section id={id} className="bg-grid-dark">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -37,7 +37,7 @@ export default function CTASection({
         )}
         <a
           href={ctaHref}
-          className="mt-8 inline-block rounded-md bg-accent px-8 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+          className="mt-8 inline-block rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
         >
           {ctaLabel}
         </a>

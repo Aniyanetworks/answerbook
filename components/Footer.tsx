@@ -16,22 +16,33 @@ const company = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-border bg-navy-950 text-slate-300">
+    <footer className="bg-grid-dark mt-auto border-t border-white/10 bg-navy-950 text-slate-300">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
           <div>
-            <div className="inline-block rounded-lg bg-white px-3 py-2">
+            <Link href="/" className="flex items-center">
               <Image
-                src="/logo-full.png"
-                alt={siteConfig.brandName}
-                width={960}
-                height={257}
+                src="/wordmark-dark.png"
+                alt="answer&book"
+                width={2299}
+                height={479}
                 className="h-8 w-auto"
               />
-            </div>
+            </Link>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">
               Missed-call recovery, speed-to-lead follow-up, and review
               automation for Ontario home-service contractors.
+            </p>
+            <p className="mt-3 text-xs text-slate-500">
+              {siteConfig.brandName} is a product of{" "}
+              <a
+                href="https://aniyanetworks.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 underline underline-offset-2 transition-colors hover:text-accent"
+              >
+                Aniya Network Solutions Inc.
+              </a>
             </p>
           </div>
 
@@ -40,7 +51,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2">
               {niches.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className="text-sm text-slate-400 hover:text-white">
+                  <Link href={n.href} className="text-sm text-slate-400 transition-colors hover:text-accent">
                     {n.label}
                   </Link>
                 </li>
@@ -53,7 +64,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2">
               {company.map((c) => (
                 <li key={c.href}>
-                  <Link href={c.href} className="text-sm text-slate-400 hover:text-white">
+                  <Link href={c.href} className="text-sm text-slate-400 transition-colors hover:text-accent">
                     {c.label}
                   </Link>
                 </li>
@@ -79,6 +90,18 @@ export default function Footer() {
           </p>
           <p>Serving home-service contractors across Ontario, Canada.</p>
         </div>
+
+        <p className="mt-4 text-center text-xs text-slate-500">
+          Designed &amp; Developed by{" "}
+          <a
+            href="https://aniyanetworks.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-accent transition-colors hover:text-white"
+          >
+            &copy; {new Date().getFullYear()} Aniya Network Solutions Inc.
+          </a>
+        </p>
       </div>
     </footer>
   );

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
 import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import GHLFormEmbed from "@/components/GHLFormEmbed";
-import { Reveal } from "@/components/Reveal";
+import GetStartedSection from "@/components/GetStartedSection";
+import PageGlowBackground from "@/components/PageGlowBackground";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -69,6 +70,11 @@ const features = [
       "Everything runs in a sub-account under your business name — you own the customer data and relationships.",
   },
 ];
+
+const steps = features.slice(0, 3).map((f) => ({
+  title: f.title,
+  description: f.description,
+}));
 
 const problems = [
   {
@@ -147,10 +153,12 @@ const faqs = [
 export default function ApplianceRepairPage() {
   return (
     <>
+      <PageGlowBackground />
       <Hero
         variant="appliance"
         headlineLines={["Never miss another", "appliance repair call again."]}
         subhead="Automated missed-call recovery, fast diagnostic follow-up, and review requests built specifically for Ontario appliance repair technicians — repair only, not retail or installs."
+        checklist={features.slice(0, 4).map((f) => f.title)}
         primaryCtaLabel="Get Started — $397/mo"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
@@ -165,12 +173,18 @@ export default function ApplianceRepairPage() {
       />
 
       <div id="how-it-works">
-        <ProblemSolution
-          heading="The problems costing repair techs jobs"
-          subheading="Breakdowns and diagnostic requests don't wait — and neither should your follow-up."
-          items={problems}
+        <HowItWorksSteps
+          heading="How it works"
+          subheading="From missed call to booked job — automatically."
+          steps={steps}
         />
       </div>
+
+      <ProblemSolution
+        heading="The problems costing repair techs jobs"
+        subheading="Breakdowns and diagnostic requests don't wait — and neither should your follow-up."
+        items={problems}
+      />
 
       <PricingCallout ctaHref="#get-started" />
 
@@ -181,23 +195,18 @@ export default function ApplianceRepairPage() {
 
       <FAQAccordion items={faqs} />
 
-      <section id="get-started" className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
-        <Reveal className="mx-auto max-w-xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-            Get your repair business set up
-          </h2>
-          <p className="mt-4 text-lg text-muted">
-            Tell us about your business and we&apos;ll get your automation
-            system live.
-          </p>
-        </Reveal>
-        <div className="mx-auto mt-10 max-w-3xl">
-          <GHLFormEmbed
-            formId={siteConfig.ghl.formIds.applianceRepair}
-            title="Appliance Repair Get Started Form"
-          />
-        </div>
-      </section>
+      <GetStartedSection
+        heading="Get your repair business set up"
+        subheading="Tell us about your business and we'll get your automation system live."
+        bullets={[
+          "Missed-call text-back (automatic, 24/7)",
+          "Speed-to-lead follow-up sequences",
+          "Appointment reminders (SMS + email)",
+          "Automated review requests after every job",
+        ]}
+        formId={siteConfig.ghl.formIds.applianceRepair}
+        formTitle="Appliance Repair Get Started Form"
+      />
 
       <CTASection
         heading="Ready to stop losing repair calls to slow follow-up?"

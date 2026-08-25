@@ -23,7 +23,7 @@ export default function PricingCallout({
   ctaLabel = "Get Started Today",
 }: PricingCalloutProps) {
   return (
-    <section className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
+    <section className="bg-grid-dark px-4 py-20 sm:px-6">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -45,7 +45,7 @@ export default function PricingCallout({
               </p>
               <a
                 href={ctaHref}
-                className="mt-8 inline-block rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+                className="mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
               >
                 {ctaLabel}
               </a>

@@ -3,24 +3,31 @@
 :root {
   /* Neutral surfaces */
   --background: #ffffff;
-  --foreground: #0f172a;
-  --surface: #f8fafc;
-  --surface-alt: #f1f5f9;
-  --border: #e2e8f0;
-  --muted: #64748b;
+  --foreground: #150f30;
+  --surface: #f8f7fc;
+  --surface-alt: #f1eefa;
+  --border: #e5e1f5;
+  --muted: #6b6688;
 
-  /* Brand — deep navy primary, electric blue accent (CTAs only) */
-  --brand-navy-950: #060a14;
-  --brand-navy-900: #0b1220;
-  --brand-navy-800: #111a2e;
-  --brand-navy-700: #1a253f;
-  --brand-navy-600: #253352;
+  /* Brand — deep indigo primary, lime green accent (CTAs + highlights).
+     The indigo scale is locked to #411eb8, the ink color sampled directly
+     from the "answer&book" wordmark logo (hue 254°), so every dark surface
+     on the site reads as the same blue as the logo rather than a separately
+     art-directed near-black navy. */
+  --brand-navy-950: #150c31;
+  --brand-navy-900: #1d1046;
+  --brand-navy-800: #28195d;
+  --brand-navy-700: #342173;
+  --brand-navy-600: #432e8a;
+  --brand-logo-blue: #411eb8;
 
-  --brand-accent: #2f6fed;
-  --brand-accent-hover: #2559c7;
-  --brand-accent-foreground: #ffffff;
+  --brand-accent: #a8e505;
+  --brand-accent-hover: #93c904;
+  --brand-accent-foreground: #150f30;
 
-  --brand-amber: #f5a623;
+  /* Gold, reserved for star ratings — a deliberate exception to the brand
+     palette since "5 gold stars" is a near-universal rating convention. */
+  --brand-amber: #f5b700;
 }
 
 @theme inline {
@@ -36,6 +43,7 @@
   --color-navy-800: var(--brand-navy-800);
   --color-navy-700: var(--brand-navy-700);
   --color-navy-600: var(--brand-navy-600);
+  --color-logo-blue: var(--brand-logo-blue);
 
   --color-accent: var(--brand-accent);
   --color-accent-hover: var(--brand-accent-hover);
@@ -43,12 +51,20 @@
   --color-amber: var(--brand-amber);
 
   --font-sans: var(--font-geist-sans);
+  --font-heading: var(--font-sora);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), var(--font-sans), sans-serif;
 }
 
 @keyframes gradient-shift {
@@ -67,37 +83,55 @@ body {
   background-image: linear-gradient(
     115deg,
     var(--brand-accent),
-    var(--brand-amber),
+    #9d8dff,
     var(--brand-accent)
   );
   background-size: 200% 200%;
   animation: gradient-shift 6s ease infinite;
 }
 
-@keyframes cta-gradient-pan {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 200% 50%;
-  }
-}
-
-.animate-cta-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--brand-navy-950),
-    var(--brand-navy-700),
-    var(--brand-navy-900),
-    var(--brand-navy-950)
-  );
-  background-size: 300% 300%;
-  animation: cta-gradient-pan 12s linear infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .animate-gradient-border,
-  .animate-cta-gradient {
+  .animate-gradient-border {
     animation: none;
+  }
+}
+
+/* Subtle square-grid texture for dark (indigo) sections — Hero, CTASection,
+   Footer, the mobile nav overlay. Implemented as a ::before overlay (not a
+   background-image on the element itself) so it layers over whatever that
+   section's own background is doing — including animated gradients — instead
+   of the two competing to set the same `background-image` property, where
+   whichever rule is declared later in the stylesheet wins outright and wipes
+   out the other. background-attachment: fixed keeps the grid pinned to the
+   viewport rather than each element's own box, so the pattern reads as one
+   continuous grid with no seam where sections meet. */
+.bg-grid-dark {
+  position: relative;
+  /* Contains the pseudo-element's stacking below normal content without
+     touching this element's own z-index among ITS siblings, and without
+     needing to reach into (and risk clashing with) existing positioned
+     children like Hero's absolutely-positioned blob-glow layer. */
+  isolation: isolate;
+}
+
+.bg-grid-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  /* iOS Safari doesn't support background-attachment: fixed reliably —
+     fall back to scroll attachment so the grid still renders, just tied to
+     each element's own box on small/touch screens. */
+  .bg-grid-dark::before {
+    background-attachment: scroll;
   }
 }

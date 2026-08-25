@@ -49,11 +49,11 @@ export default function GHLFormEmbed({
     // Shown until NEXT_PUBLIC_GHL_FORM_ID_* is set in the environment — a
     // direct call button reads as a real CTA instead of a dead-end notice.
     return (
-      <div className={`flex flex-col items-center gap-4 rounded-lg border border-border bg-surface p-10 text-center ${className}`}>
+      <div className={`flex flex-col items-center gap-4 py-6 text-center ${className}`}>
         <p className="text-sm text-muted">Ready to get started? Give us a call.</p>
         <a
           href={`tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`}
-          className="inline-flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+          className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
         >
           <PhoneIcon width={18} height={18} />
           Call {siteConfig.contact.phone}
@@ -62,9 +62,20 @@ export default function GHLFormEmbed({
     );
   }
 
-  const src = `https://api.leadconnectorhq.com/widget/form/${formId}${
-    query ? `?${query}` : ""
-  }`;
+  // Accepts either a bare form ID (default leadconnectorhq.com domain) or a
+  // full embed URL — some GHL sub-accounts serve forms from a custom/branded
+  // domain (e.g. link.dvrealty.ca) instead of the shared one.
+  const baseSrc = formId.startsWith("http")
+    ? formId
+    : `https://api.leadconnectorhq.com/widget/form/${formId}`;
+  const src = query ? `${baseSrc}${baseSrc.includes("?") ? "&" : "?"}${query}` : baseSrc;
+
+  // form_embed.js keys its resize/reveal logic off these id/data-form-id
+  // attributes and expects a short bare ID — when formId is a full URL, use
+  // just its last path segment here (the src above still gets the full URL).
+  const shortId = formId.startsWith("http")
+    ? (formId.split("/").filter(Boolean).pop() ?? formId)
+    : formId;
 
   return (
     <div className={className}>
@@ -72,15 +83,15 @@ export default function GHLFormEmbed({
         src={src}
         title={title}
         style={{ width: "100%", height, border: "none", borderRadius: "0.75rem" }}
-        id={`inline-${formId}`}
+        id={`inline-${shortId}`}
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
         data-activation-type="alwaysActivated"
         data-deactivation-type="neverDeactivate"
         data-form-name={title}
         data-height={height}
-        data-layout-iframe-id={`inline-${formId}`}
-        data-form-id={formId}
+        data-layout-iframe-id={`inline-${shortId}`}
+        data-form-id={shortId}
       />
       <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
     </div>

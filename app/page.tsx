@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for when the "Built for your trade" section below is re-enabled
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
+import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
 import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
-import GHLFormEmbed from "@/components/GHLFormEmbed";
+import GetStartedSection from "@/components/GetStartedSection";
+import PageGlowBackground from "@/components/PageGlowBackground";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for when the "Built for your trade" section below is re-enabled
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
@@ -72,6 +76,11 @@ const features = [
   },
 ];
 
+const steps = features.slice(0, 3).map((f) => ({
+  title: f.title,
+  description: f.description,
+}));
+
 const problems = [
   {
     problem:
@@ -99,6 +108,7 @@ const problems = [
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for when the "Built for your trade" section below is re-enabled
 const niches = [
   {
     href: "/hvac-ontario",
@@ -172,11 +182,13 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
+      <PageGlowBackground />
       <LocalBusinessJsonLd />
       <Hero
         variant="home"
         headlineLines={["Stop losing jobs to", "missed calls and slow follow-up."]}
         subhead="A done-for-you automation system that answers missed calls, follows up on new leads in minutes, reminds customers about appointments, and asks for reviews automatically — all for one flat monthly price."
+        checklist={features.slice(0, 4).map((f) => f.title)}
         primaryCtaLabel="Get Started — $397/mo"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
@@ -191,19 +203,25 @@ export default function HomePage() {
       />
 
       <div id="how-it-works">
-        <ProblemSolution
-          heading="Built for how trade contractors actually work"
-          subheading="You're on job sites, not at a desk. The system runs whether you're free to answer or not."
-          items={problems}
+        <HowItWorksSteps
+          heading="How it works"
+          subheading="From missed call to booked job — automatically."
+          steps={steps}
         />
       </div>
 
-      <section className="bg-linear-to-b from-surface to-white px-4 py-20 sm:px-6">
+      <ProblemSolution
+        heading="Built for how trade contractors actually work"
+        subheading="You're on job sites, not at a desk. The system runs whether you're free to answer or not."
+        items={problems}
+      />
+
+      {/* <section className="bg-grid-dark px-4 py-20 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Built for your trade
           </h2>
-          <p className="mt-4 text-lg text-muted">
+          <p className="mt-4 text-lg text-slate-400">
             Dedicated setups with niche-specific messaging for these
             contractor types.
           </p>
@@ -213,16 +231,16 @@ export default function HomePage() {
             <RevealItem key={n.href}>
               <Link
                 href={n.href}
-                className="block h-full rounded-xl border border-border bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="block h-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07]"
               >
-                <h3 className="text-lg font-semibold text-navy-900">{n.title}</h3>
-                <p className="mt-2 text-sm text-muted">{n.description}</p>
+                <h3 className="text-lg font-semibold text-white">{n.title}</h3>
+                <p className="mt-2 text-sm text-slate-400">{n.description}</p>
                 <p className="mt-4 text-sm font-medium text-accent">Learn more &rarr;</p>
               </Link>
             </RevealItem>
           ))}
         </RevealGroup>
-      </section>
+      </section> */}
 
       <PricingCallout ctaHref="#get-started" />
 
@@ -230,20 +248,18 @@ export default function HomePage() {
 
       <FAQAccordion items={faqs} />
 
-      <section id="get-started" className="bg-linear-to-b from-white to-surface px-4 py-20 sm:px-6">
-        <Reveal className="mx-auto max-w-xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-            Get started today
-          </h2>
-          <p className="mt-4 text-lg text-muted">
-            Tell us about your business and we&apos;ll reach out to get your
-            automation system live.
-          </p>
-        </Reveal>
-        <div className="mx-auto mt-10 max-w-3xl">
-          <GHLFormEmbed formId={siteConfig.ghl.formIds.home} title="Get Started Form" />
-        </div>
-      </section>
+      <GetStartedSection
+        heading="Get started today"
+        subheading="Tell us about your business and we'll reach out to get your automation system live."
+        bullets={[
+          "Missed-call text-back (automatic, 24/7)",
+          "Speed-to-lead follow-up sequences",
+          "Appointment reminders (SMS + email)",
+          "Automated review requests after every job",
+        ]}
+        formId={siteConfig.ghl.formIds.home}
+        formTitle="Get Started Form"
+      />
 
       <CTASection
         heading="Ready to stop losing jobs to missed calls?"

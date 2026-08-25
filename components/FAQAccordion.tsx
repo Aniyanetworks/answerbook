@@ -21,14 +21,14 @@ export default function FAQAccordion({
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-linear-to-b from-surface to-white py-20">
+    <section className="bg-grid-dark py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <motion.h2
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnceSmall}
           variants={fadeUp}
-          className="text-center text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl"
+          className="text-center text-3xl font-bold tracking-tight text-white sm:text-4xl"
         >
           {heading}
         </motion.h2>
@@ -38,7 +38,7 @@ export default function FAQAccordion({
           whileInView="visible"
           viewport={viewportOnceSmall}
           variants={fadeUp}
-          className="mt-10 divide-y divide-border rounded-xl border border-border bg-white"
+          className="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-xl"
         >
           {items.map((item, index) => {
             const isOpen = openIndex === index;
@@ -50,11 +50,11 @@ export default function FAQAccordion({
                   aria-expanded={isOpen}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                 >
-                  <span className="text-sm font-semibold text-navy-900 sm:text-base">
+                  <span className="text-sm font-semibold text-white sm:text-base">
                     {item.question}
                   </span>
                   <motion.svg
-                    className="h-5 w-5 shrink-0 text-muted"
+                    className="h-5 w-5 shrink-0 text-slate-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                     animate={{ rotate: isOpen ? 180 : 0 }}
@@ -77,7 +77,7 @@ export default function FAQAccordion({
                       transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted">
+                      <p className="px-6 pb-5 text-sm leading-relaxed text-slate-400">
                         {item.answer}
                       </p>
                     </motion.div>

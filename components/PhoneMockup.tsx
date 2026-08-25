@@ -74,7 +74,7 @@ export default function PhoneMockup() {
         transition={{ duration: 0.4, delay: 2.7, ease: [0.21, 0.47, 0.32, 0.98] }}
         className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-navy-900 shadow-lg"
       >
-        <span className="h-2 w-2 rounded-full bg-emerald-500" />
+        <span className="h-2 w-2 rounded-full bg-accent" />
         Lead recovered
       </motion.div>
     </div>

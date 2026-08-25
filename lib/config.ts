@@ -10,8 +10,8 @@
 const publicEnv = (value: string | undefined, fallback = "") => value ?? fallback;
 
 export const siteConfig = {
-  brandName: "ANS GHL SaaS",
-  shortName: "ANS",
+  brandName: "answer&book",
+  shortName: "answer&book",
   tagline: "Book More Jobs — Automated",
   domain: publicEnv(process.env.NEXT_PUBLIC_SITE_DOMAIN, "ansghlsaas.com"),
   url: publicEnv(process.env.NEXT_PUBLIC_SITE_URL, "https://ansghlsaas.com"),
