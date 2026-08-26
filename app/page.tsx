@@ -6,14 +6,13 @@ import FeatureGrid from "@/components/FeatureGrid";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
-import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
 import PageGlowBackground from "@/components/PageGlowBackground";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for when the "Built for your trade" section below is re-enabled
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
-import { LocalBusinessJsonLd } from "@/components/JsonLd";
+import { FAQPageJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -25,12 +24,12 @@ import {
 } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.brandName} — Book More Jobs with Automated Follow-Up`,
+  title: `Missed-Call Software for Ontario Contractors | ${siteConfig.brandName}`,
   description:
-    "A done-for-you GoHighLevel automation snapshot for Ontario home-service contractors: missed-call recovery, speed-to-lead follow-up, appointment reminders, and review requests for $397/month.",
+    "A done-for-you automation system for Ontario home-service contractors: missed-call recovery, speed-to-lead follow-up, appointment reminders, and review requests — deployed to your own account.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${siteConfig.brandName} — Book More Jobs with Automated Follow-Up`,
+    title: `Missed-Call Software for Ontario Contractors | ${siteConfig.brandName}`,
     description:
       "Missed-call recovery, speed-to-lead follow-up, appointment reminders, and review automation for Ontario trade contractors.",
     url: siteConfig.url,
@@ -127,38 +126,38 @@ const niches = [
   },
 ];
 
-const testimonials = [
+// Interim trust block used in place of testimonials until real, named case
+// studies exist — every line here is a verifiable claim about how the
+// product works, not an invented result or review.
+const trustPoints = [
   {
-    quote:
-      "We stopped losing leads to voicemail. The missed-call text-back alone paid for the month.",
-    name: "Placeholder Name",
-    business: "Placeholder HVAC Co.",
-    location: "Toronto, ON",
+    icon: <ShieldIcon />,
+    title: "Built for Ontario trades",
+    description:
+      "Not a generic automation template — built specifically around how HVAC, appliance repair, and plumbing companies actually work.",
   },
   {
-    quote:
-      "Review requests go out automatically now — our Google rating went from 4.1 to 4.7 in two months.",
-    name: "Placeholder Name",
-    business: "Placeholder Plumbing Ltd.",
-    location: "Ottawa, ON",
+    icon: <PipelineIcon />,
+    title: "You own your data",
+    description:
+      "Everything is deployed into your own account. Your customer relationships and data are yours, not locked into a shared platform.",
   },
   {
-    quote:
-      "Setup was fast and it just runs in the background. I don't think about it — it just books jobs.",
-    name: "Placeholder Name",
-    business: "Placeholder Appliance Repair",
-    location: "Hamilton, ON",
+    icon: <LightningIcon />,
+    title: "Live in days, not months",
+    description:
+      "Most contractors are fully set up and running within a few business days of signing up.",
   },
 ];
 
 const faqs = [
   {
-    question: "What exactly do I get for $397/month?",
+    question: "What exactly do I get?",
     answer:
-      "A fully deployed GoHighLevel automation snapshot in your own sub-account: missed-call text-back, speed-to-lead follow-up, appointment reminders, review request automation, and a simple sales pipeline — configured and ready to run.",
+      "A fully deployed automation snapshot in your own sub-account: missed-call text-back, speed-to-lead follow-up, appointment reminders, review request automation, and a simple sales pipeline — configured and ready to run.",
   },
   {
-    question: "Do I need to already use GoHighLevel?",
+    question: "Do I need any special software already set up?",
     answer:
       "No. Your sub-account is set up for you as part of onboarding, so there's nothing to install or configure yourself.",
   },
@@ -183,13 +182,13 @@ export default function HomePage() {
   return (
     <>
       <PageGlowBackground />
-      <LocalBusinessJsonLd />
+      <FAQPageJsonLd items={faqs} />
       <Hero
         variant="home"
         headlineLines={["Stop losing jobs to", "missed calls and slow follow-up."]}
         subhead="A done-for-you automation system that answers missed calls, follows up on new leads in minutes, reminds customers about appointments, and asks for reviews automatically — all for one flat monthly price."
         checklist={features.slice(0, 4).map((f) => f.title)}
-        primaryCtaLabel="Get Started — $397/mo"
+        primaryCtaLabel="Get Started"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
         secondaryCtaHref="#how-it-works"
@@ -244,7 +243,12 @@ export default function HomePage() {
 
       <PricingCallout ctaHref="#get-started" />
 
-      <SocialProof testimonials={testimonials} />
+      <FeatureGrid
+        eyebrow="Why Trust Us"
+        heading="Built to earn it, not just claim it"
+        subheading="We're not publishing fake reviews. Here's what's actually true about how this works."
+        features={trustPoints}
+      />
 
       <FAQAccordion items={faqs} />
 
@@ -263,8 +267,8 @@ export default function HomePage() {
 
       <CTASection
         heading="Ready to stop losing jobs to missed calls?"
-        subheading="Join Ontario contractors automating their follow-up for $397/month."
-        ctaLabel="Get Started — $397/mo"
+        subheading="Join Ontario contractors automating their follow-up."
+        ctaLabel="Get Started"
         ctaHref="#get-started"
       />
     </>

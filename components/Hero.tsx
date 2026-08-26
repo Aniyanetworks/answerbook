@@ -6,7 +6,7 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 export type HeroVariant = "home" | "hvac" | "appliance" | "plumbing";
 
 const eyebrowByVariant: Record<HeroVariant, string> = {
-  home: "GoHighLevel Automation for Ontario Trade Contractors",
+  home: "Automation for Ontario Trade Contractors",
   hvac: "Built for Ontario HVAC Companies",
   appliance: "Built for Ontario Appliance Repair Companies",
   plumbing: "Built for Ontario Plumbing Companies",
@@ -15,7 +15,7 @@ const eyebrowByVariant: Record<HeroVariant, string> = {
 const stats = [
   { value: "24/7", label: "Missed-call coverage" },
   { value: "Days", label: "To get fully live" },
-  { value: "Your Own", label: "GHL sub-account" },
+  { value: "Your Own", label: "business account" },
 ];
 
 interface HeroProps {

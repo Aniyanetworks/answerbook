@@ -54,6 +54,16 @@
   --font-heading: var(--font-sora);
 }
 
+html {
+  /* Site-wide text bump — Tailwind's text-* sizes are all rem-based, so
+     scaling the root font-size here grows everything (body copy, buttons,
+     headings) proportionally together, keeping the existing size hierarchy
+     intact instead of just enlarging a few classes in isolation. Percentage
+     (not a fixed px) so it still respects a visitor's own browser zoom/
+     accessibility font-size setting. */
+  font-size: 112.5%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

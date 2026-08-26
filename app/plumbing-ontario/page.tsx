@@ -4,11 +4,11 @@ import FeatureGrid from "@/components/FeatureGrid";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
-import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
 import PageGlowBackground from "@/components/PageGlowBackground";
+import { FAQPageJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -17,15 +17,16 @@ import {
   StarIcon,
   DropletIcon,
   ShieldIcon,
+  PipelineIcon,
 } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "GoHighLevel Automation for Ontario Plumbing Companies",
+  title: `Missed-Call Software for Ontario Plumbing Contractors | ${siteConfig.brandName}`,
   description:
-    "Missed-call recovery, speed-to-lead follow-up, and review automation built for Ontario residential plumbing and emergency service companies. $397/month, deployed to your own account.",
+    "Missed-call recovery, speed-to-lead follow-up, and review automation built for Ontario residential plumbing and emergency service companies — deployed to your own account.",
   alternates: { canonical: "/plumbing-ontario" },
   openGraph: {
-    title: "GoHighLevel Automation for Ontario Plumbing Companies",
+    title: `Missed-Call Software for Ontario Plumbing Contractors | ${siteConfig.brandName}`,
     description:
       "Book more plumbing jobs with automated follow-up built for residential and emergency plumbing companies.",
     url: `${siteConfig.url}/plumbing-ontario`,
@@ -65,7 +66,7 @@ const features = [
   },
   {
     icon: <ShieldIcon />,
-    title: "Your Own GHL Sub-Account",
+    title: "Your Own Sub-Account",
     description:
       "The whole system runs in a sub-account under your business — you keep the customer relationships and data.",
   },
@@ -103,27 +104,26 @@ const problems = [
   },
 ];
 
-const testimonials = [
+// Interim trust block used in place of testimonials until real, named case
+// studies exist — every line here is a verifiable claim, not an invented result.
+const trustPoints = [
   {
-    quote:
-      "A burst pipe call came in overnight and the text-back kept the homeowner with us until we could call first thing.",
-    name: "Placeholder Name",
-    business: "Placeholder Plumbing Services",
-    location: "Brampton, ON",
+    icon: <ShieldIcon />,
+    title: "Built for plumbing, emergencies included",
+    description:
+      "Burst pipes and after-hours calls don't wait for business hours — built around that reality, not a generic office-hours template.",
   },
   {
-    quote:
-      "Quote requests used to sit overnight. Now they get a response in minutes and we're booking more jobs because of it.",
-    name: "Placeholder Name",
-    business: "Placeholder Plumbing & Drain",
-    location: "Guelph, ON",
+    icon: <PipelineIcon />,
+    title: "Your data, your account",
+    description:
+      "The whole system runs in your own account. Your leads, customers, and history stay with your business.",
   },
   {
-    quote:
-      "Our review count climbed steadily without anyone on the team manually asking for them.",
-    name: "Placeholder Name",
-    business: "Placeholder Plumbing Co.",
-    location: "Oshawa, ON",
+    icon: <LightningIcon />,
+    title: "Live in days",
+    description:
+      "Most plumbing companies are fully set up and running within a few business days of signing up.",
   },
 ];
 
@@ -144,7 +144,7 @@ const faqs = [
       "No. The automations run on their own — you and your team just work the pipeline that's already organized for you.",
   },
   {
-    question: "What's included for $397/month?",
+    question: "What's included?",
     answer:
       "Missed-call text-back, speed-to-lead follow-up, appointment reminders, automated review requests, and a sales pipeline — all deployed into your own account.",
   },
@@ -154,12 +154,18 @@ export default function PlumbingPage() {
   return (
     <>
       <PageGlowBackground />
+      <FAQPageJsonLd items={faqs} />
+      <ServiceJsonLd
+        name="Plumbing Missed-Call & Lead Follow-Up Automation"
+        description="Missed-call recovery, speed-to-lead follow-up, and review automation for Ontario residential plumbing and emergency service companies."
+        path="/plumbing-ontario"
+      />
       <Hero
         variant="plumbing"
         headlineLines={["Never miss another", "emergency plumbing call again."]}
         subhead="Automated missed-call recovery, fast quote follow-up, and review requests built specifically for Ontario residential and emergency plumbing companies."
         checklist={features.slice(0, 4).map((f) => f.title)}
-        primaryCtaLabel="Get Started — $397/mo"
+        primaryCtaLabel="Get Started"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
         secondaryCtaHref="#how-it-works"
@@ -188,9 +194,11 @@ export default function PlumbingPage() {
 
       <PricingCallout ctaHref="#get-started" />
 
-      <SocialProof
-        heading="Trusted by Ontario plumbing contractors"
-        testimonials={testimonials}
+      <FeatureGrid
+        eyebrow="Why Trust Us"
+        heading="Built to earn it, not just claim it"
+        subheading="We're not publishing fake reviews. Here's what's actually true about how this works."
+        features={trustPoints}
       />
 
       <FAQAccordion items={faqs} />
@@ -210,8 +218,8 @@ export default function PlumbingPage() {
 
       <CTASection
         heading="Ready to stop losing plumbing jobs to slow follow-up?"
-        subheading="Join Ontario plumbing contractors automating their lead response for $397/month."
-        ctaLabel="Get Started — $397/mo"
+        subheading="Join Ontario plumbing contractors automating their lead response."
+        ctaLabel="Get Started"
         ctaHref="#get-started"
       />
     </>

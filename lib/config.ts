@@ -19,7 +19,7 @@ export const siteConfig = {
   // TODO: replace with real business contact details before launch.
   contact: {
     phone: publicEnv(process.env.NEXT_PUBLIC_CONTACT_PHONE, "(437) 777-8844"),
-    email: publicEnv(process.env.NEXT_PUBLIC_CONTACT_EMAIL, "info@aniyanetworks.net"),
+    email: publicEnv(process.env.NEXT_PUBLIC_CONTACT_EMAIL, "connect@answerandbook.ca"),
     addressLine: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_ADDRESS, "Ontario, Canada"),
   },
 
@@ -53,6 +53,14 @@ export const siteConfig = {
     // from the account-level googleAdsId above — required to fire an actual
     // conversion event rather than just base pageview tracking.
     googleAdsConversionLabel: publicEnv(process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL),
+    // Separate conversion action for phone-click events — a click-to-call is
+    // a different conversion type than a form submit, so it needs its own
+    // label in Google Ads rather than reusing the one above. Optional: the
+    // click-to-call event still fires in GA4/Meta without it, just not as a
+    // Google Ads conversion until this is set.
+    googleAdsCallConversionLabel: publicEnv(
+      process.env.NEXT_PUBLIC_GOOGLE_ADS_CALL_CONVERSION_LABEL,
+    ),
   },
 
   search: {

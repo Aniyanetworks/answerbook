@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { PhoneIcon, MailIcon, PinIcon } from "@/components/icons";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { siteConfig } from "@/lib/config";
+import { trackClickToCall } from "@/lib/track";
 
 interface GetStartedSectionProps {
   heading: string;
@@ -70,6 +71,7 @@ export default function GetStartedSection({
             <motion.a
               variants={fadeUp}
               href={`tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`}
+              onClick={trackClickToCall}
               className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/[0.07]"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">

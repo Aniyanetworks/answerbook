@@ -33,7 +33,7 @@ export default function Footer() {
               Missed-call recovery, speed-to-lead follow-up, and review
               automation for Ontario home-service contractors.
             </p>
-            <p className="mt-3 text-xs text-slate-500">
+            <p className="mt-3 text-[15px] text-slate-500">
               {siteConfig.brandName} is a product of{" "}
               <a
                 href="https://aniyanetworks.net"
@@ -46,7 +46,8 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+          {/* These links should not have to expose in home page now */}
+          {/* <div>
             <p className="text-sm font-semibold text-white">For Contractors</p>
             <ul className="mt-3 space-y-2">
               {niches.map((n) => (
@@ -57,7 +58,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           <div>
             <p className="text-sm font-semibold text-white">Company</p>
@@ -83,7 +84,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-[15px] text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.brandName}. All
             rights reserved.
@@ -91,7 +92,7 @@ export default function Footer() {
           <p>Serving home-service contractors across Ontario, Canada.</p>
         </div>
 
-        <p className="mt-4 text-center text-xs text-slate-500">
+        <p className="mt-4 text-center text-[15px] text-slate-500">
           Designed &amp; Developed by{" "}
           <a
             href="https://aniyanetworks.net"

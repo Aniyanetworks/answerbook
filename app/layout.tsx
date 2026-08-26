@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.brandName}`,
   },
   description:
-    "GoHighLevel-based automation for Ontario home-service contractors. Missed-call recovery, speed-to-lead follow-up, appointment reminders, and review requests — deployed to your own account for $397/month.",
+    "Automation for Ontario home-service contractors. Missed-call recovery, speed-to-lead follow-up, appointment reminders, and review requests — deployed to your own account.",
   openGraph: {
     siteName: siteConfig.brandName,
     type: "website",

@@ -4,11 +4,11 @@ import FeatureGrid from "@/components/FeatureGrid";
 import HowItWorksSteps from "@/components/HowItWorksSteps";
 import ProblemSolution from "@/components/ProblemSolution";
 import PricingCallout from "@/components/PricingCallout";
-import SocialProof from "@/components/Testimonial";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
 import PageGlowBackground from "@/components/PageGlowBackground";
+import { FAQPageJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 import {
   PhoneIcon,
@@ -17,15 +17,16 @@ import {
   StarIcon,
   WrenchIcon,
   ShieldIcon,
+  PipelineIcon,
 } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "GoHighLevel Automation for Ontario Appliance Repair Companies",
+  title: `Missed-Call Software for Ontario Appliance Repair Contractors | ${siteConfig.brandName}`,
   description:
-    "Missed-call recovery, speed-to-lead follow-up, and review automation built for Ontario appliance repair technicians — diagnostics and in-home or in-shop repair, not retail or new installs. $397/month.",
+    "Missed-call recovery, speed-to-lead follow-up, and review automation built for Ontario appliance repair technicians — diagnostics and in-home or in-shop repair, not retail or new installs.",
   alternates: { canonical: "/appliance-repair-ontario" },
   openGraph: {
-    title: "GoHighLevel Automation for Ontario Appliance Repair Companies",
+    title: `Missed-Call Software for Ontario Appliance Repair Contractors | ${siteConfig.brandName}`,
     description:
       "Book more repair calls with automated follow-up built for appliance repair technicians.",
     url: `${siteConfig.url}/appliance-repair-ontario`,
@@ -65,7 +66,7 @@ const features = [
   },
   {
     icon: <ShieldIcon />,
-    title: "Your Own GHL Sub-Account",
+    title: "Your Own Sub-Account",
     description:
       "Everything runs in a sub-account under your business name — you own the customer data and relationships.",
   },
@@ -103,27 +104,26 @@ const problems = [
   },
 ];
 
-const testimonials = [
+// Interim trust block used in place of testimonials until real, named case
+// studies exist — every line here is a verifiable claim, not an invented result.
+const trustPoints = [
   {
-    quote:
-      "A fridge repair call came in while I was under a dishwasher — the text-back kept the customer with us instead of calling around.",
-    name: "Placeholder Name",
-    business: "Placeholder Appliance Repair",
-    location: "Kitchener, ON",
+    icon: <ShieldIcon />,
+    title: "Built for repair, not retail",
+    description:
+      "Diagnostic calls, warranty work, and in-home visits work differently than a sales floor. Built around that distinction, not a generic install-focused template.",
   },
   {
-    quote:
-      "Diagnostic requests used to sit until end of day. Now we follow up in minutes and we're booking more repair calls.",
-    name: "Placeholder Name",
-    business: "Placeholder Repair Services",
-    location: "Windsor, ON",
+    icon: <PipelineIcon />,
+    title: "Your data, your account",
+    description:
+      "Everything runs in your own account — your customer relationships and repair history aren't locked into a shared platform.",
   },
   {
-    quote:
-      "Review requests go out the moment a job's marked done. Our rating's climbed without anyone having to remember to ask.",
-    name: "Placeholder Name",
-    business: "Placeholder Home Appliance Repair",
-    location: "Vaughan, ON",
+    icon: <LightningIcon />,
+    title: "Live in days",
+    description:
+      "Most repair companies are fully set up and running within a few business days of signing up.",
   },
 ];
 
@@ -144,7 +144,7 @@ const faqs = [
       "Yes — you can use the automated follow-up sequences to keep warranty repair customers updated through the repair process.",
   },
   {
-    question: "What's included for $397/month?",
+    question: "What's included?",
     answer:
       "Missed-call text-back, speed-to-lead follow-up, service call reminders, automated review requests, and a sales pipeline — all deployed into your own account.",
   },
@@ -154,12 +154,18 @@ export default function ApplianceRepairPage() {
   return (
     <>
       <PageGlowBackground />
+      <FAQPageJsonLd items={faqs} />
+      <ServiceJsonLd
+        name="Appliance Repair Missed-Call & Lead Follow-Up Automation"
+        description="Missed-call recovery, speed-to-lead follow-up, and review automation for Ontario appliance repair technicians — diagnostics and in-home or in-shop repair."
+        path="/appliance-repair-ontario"
+      />
       <Hero
         variant="appliance"
         headlineLines={["Never miss another", "appliance repair call again."]}
         subhead="Automated missed-call recovery, fast diagnostic follow-up, and review requests built specifically for Ontario appliance repair technicians — repair only, not retail or installs."
         checklist={features.slice(0, 4).map((f) => f.title)}
-        primaryCtaLabel="Get Started — $397/mo"
+        primaryCtaLabel="Get Started"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
         secondaryCtaHref="#how-it-works"
@@ -188,9 +194,11 @@ export default function ApplianceRepairPage() {
 
       <PricingCallout ctaHref="#get-started" />
 
-      <SocialProof
-        heading="Trusted by Ontario appliance repair companies"
-        testimonials={testimonials}
+      <FeatureGrid
+        eyebrow="Why Trust Us"
+        heading="Built to earn it, not just claim it"
+        subheading="We're not publishing fake reviews. Here's what's actually true about how this works."
+        features={trustPoints}
       />
 
       <FAQAccordion items={faqs} />
@@ -210,8 +218,8 @@ export default function ApplianceRepairPage() {
 
       <CTASection
         heading="Ready to stop losing repair calls to slow follow-up?"
-        subheading="Join Ontario appliance repair companies automating their lead response for $397/month."
-        ctaLabel="Get Started — $397/mo"
+        subheading="Join Ontario appliance repair companies automating their lead response."
+        ctaLabel="Get Started"
         ctaHref="#get-started"
       />
     </>

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/config";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 const included = [
@@ -20,7 +19,7 @@ interface PricingCalloutProps {
 
 export default function PricingCallout({
   ctaHref,
-  ctaLabel = "Get Started Today",
+  ctaLabel = "Book a Call",
 }: PricingCalloutProps) {
   return (
     <section className="bg-grid-dark px-4 py-20 sm:px-6">
@@ -35,13 +34,14 @@ export default function PricingCallout({
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-8 sm:p-10">
               <p className="text-sm font-semibold uppercase tracking-wide text-accent">
-                {siteConfig.pricing.tierName}
+                Let&apos;s Talk
               </p>
-              <p className="mt-2 text-4xl font-bold text-white">
-                {siteConfig.pricing.priceLabel}
+              <p className="mt-2 text-3xl font-bold text-white sm:text-4xl">
+                One flat rate. No surprises.
               </p>
-              <p className="mt-1 text-sm text-slate-400">
-                One flat price. No setup surprises. Cancel anytime.
+              <p className="mt-3 text-sm text-slate-400">
+                Pricing depends on your business and what&apos;s already in
+                place — we&apos;ll walk through it together on a quick call.
               </p>
               <a
                 href={ctaHref}

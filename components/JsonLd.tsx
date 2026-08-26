@@ -9,7 +9,42 @@ export function OrganizationJsonLd() {
     email: siteConfig.contact.email,
     telephone: siteConfig.contact.phone,
     description:
-      "GoHighLevel-based automation software for Ontario home-service trade contractors — missed-call recovery, speed-to-lead follow-up, appointment reminders, review requests, and pipeline management.",
+      "Automation software for Ontario home-service trade contractors — missed-call recovery, speed-to-lead follow-up, appointment reminders, review requests, and pipeline management.",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function ServiceJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    url: `${siteConfig.url}${path}`,
+    serviceType: name,
+    areaServed: {
+      "@type": "State",
+      name: "Ontario",
+    },
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.brandName,
+      url: siteConfig.url,
+    },
   };
 
   return (
@@ -75,6 +110,32 @@ export function BlogPostingJsonLd({
       name: siteConfig.brandName,
       url: siteConfig.url,
     },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function FAQPageJsonLd({
+  items,
+}: {
+  items: { question: string; answer: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
   return (

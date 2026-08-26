@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 import { PhoneIcon } from "@/components/icons";
 import { siteConfig } from "@/lib/config";
+import { trackClickToCall } from "@/lib/track";
 
 // Query params GHL's hosted form will read into matching hidden fields
 // (configure hidden fields with these exact keys in the GHL form builder).
@@ -53,6 +54,7 @@ export default function GHLFormEmbed({
         <p className="text-sm text-muted">Ready to get started? Give us a call.</p>
         <a
           href={`tel:${siteConfig.contact.phone.replace(/[^\d+]/g, "")}`}
+          onClick={trackClickToCall}
           className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
         >
           <PhoneIcon width={18} height={18} />
