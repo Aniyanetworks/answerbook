@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import BlogCard from "@/components/BlogCard";
-import { getPosts, type BlogPost } from "@/lib/blog";
+import PageGlowBackground from "@/components/PageGlowBackground";
+import { getPosts, BLOG_REVALIDATE_SECONDS, type BlogPost } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
+
+export const revalidate = BLOG_REVALIDATE_SECONDS;
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -14,14 +17,15 @@ export const metadata: Metadata = {
   },
 };
 
-// Placeholder post shown only when the n8n-fed blog API returns zero posts
-// (e.g. BLOG_API_URL isn't configured yet), so the page isn't empty in dev.
+// Placeholder post shown only when Supabase returns zero published posts
+// (e.g. NEXT_PUBLIC_SUPABASE_URL/ANON_KEY aren't configured yet, or nothing
+// has been published), so the page isn't empty in dev.
 const placeholderPost: BlogPost = {
   title: "Welcome to the Blog",
   slug: "welcome",
   excerpt:
-    "This is a placeholder post. Once BLOG_API_URL is configured and posts are published via the n8n workflow, real posts will appear here automatically.",
-  body: "This is a placeholder post shown because no posts were returned from the blog API.",
+    "This is a placeholder post. Once Supabase is configured and posts are published via the n8n workflow, real posts will appear here automatically.",
+  body: "<p>This is a placeholder post shown because no published posts were found.</p>",
   publishedAt: new Date().toISOString(),
   author: siteConfig.brandName,
 };
@@ -32,30 +36,33 @@ export default async function BlogIndexPage() {
   const displayed = isEmpty ? [placeholderPost] : posts;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-navy-900">
-          Blog
-        </h1>
-        <p className="mt-4 text-lg text-muted">
-          Insights on lead follow-up, automation, and growing an Ontario
-          home-service business.
-        </p>
-      </div>
+    <>
+      <PageGlowBackground />
+      <section className="bg-grid-dark px-4 py-20 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-white">
+            Blog
+          </h1>
+          <p className="mt-4 text-lg text-slate-300">
+            Insights on lead follow-up, automation, and growing an Ontario
+            home-service business.
+          </p>
+        </div>
 
-      {isEmpty && (
-        <p className="mx-auto mt-8 max-w-xl rounded-lg border border-dashed border-border bg-surface p-4 text-center text-sm text-muted">
-          {/* Dev/empty-state notice — not shown once the blog API returns real posts. */}
-          No posts yet — showing a placeholder. Posts published via the n8n
-          workflow will appear here automatically.
-        </p>
-      )}
+        {isEmpty && (
+          <p className="mx-auto mt-8 max-w-xl rounded-2xl border border-white/10 bg-white/5 p-4 text-center text-sm text-slate-300 backdrop-blur-xl">
+            {/* Dev/empty-state notice — not shown once the blog API returns real posts. */}
+            No posts yet — showing a placeholder. Posts published via the n8n
+            workflow will appear here automatically.
+          </p>
+        )}
 
-      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {displayed.map((post) => (
-          <BlogCard key={post.slug} post={post} />
-        ))}
-      </div>
-    </section>
+        <div className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {displayed.map((post) => (
+            <BlogCard key={post.slug} post={post} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

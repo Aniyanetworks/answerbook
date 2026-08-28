@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# n8n workflow exports — these carry API keys/credential references inline
+# (n8n has no built-in secret-redaction for exported JSON), so they stay
+# local-only rather than risk a key landing in the (public) repo history.
+/n8n/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

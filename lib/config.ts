@@ -78,10 +78,14 @@ export const siteConfig = {
     googleSiteVerification: publicEnv(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION),
   },
 
-  blog: {
-    // Server-only var (no NEXT_PUBLIC_ prefix) — never read client-side, so a
-    // dynamic lookup here is fine; it's only ever evaluated in Node.
-    apiUrl: process.env.BLOG_API_URL ?? "",
+  // Blog storage — populated by the n8n AI pipeline (keyword queue lives in
+  // a Google Sheet, generated posts land here as drafts). The anon key is a
+  // public, client-safe credential: Supabase Row Level Security restricts
+  // what it can read to status = 'published' rows only (see
+  // supabase/schema.sql), so it's safe to ship in the client bundle.
+  supabase: {
+    url: publicEnv(process.env.NEXT_PUBLIC_SUPABASE_URL),
+    anonKey: publicEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
   },
 } as const;
 
