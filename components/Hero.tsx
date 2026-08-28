@@ -119,12 +119,16 @@ export default function Hero({
 
           <motion.div
             variants={fadeUp}
-            className="mx-auto mt-10 flex items-center justify-center divide-x divide-white/10 border-t border-white/10 pt-6"
+            className="mx-auto mt-10 grid grid-cols-3 gap-2 border-t border-white/10 pt-6 sm:flex sm:items-center sm:justify-center sm:gap-0 sm:divide-x sm:divide-white/10"
           >
             {stats.map((stat) => (
-              <div key={stat.label} className="px-6 first:pl-0 last:pr-0">
-                <p className="whitespace-nowrap font-heading text-2xl font-bold text-accent">{stat.value}</p>
-                <p className="mt-0.5 whitespace-nowrap text-xs text-slate-400">{stat.label}</p>
+              <div key={stat.label} className="px-1 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+                <p className="font-heading text-xl font-bold text-accent sm:whitespace-nowrap sm:text-2xl">
+                  {stat.value}
+                </p>
+                <p className="mt-0.5 text-[11px] text-slate-400 sm:whitespace-nowrap sm:text-xs">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </motion.div>
