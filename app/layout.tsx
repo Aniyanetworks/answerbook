@@ -5,7 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
-import { OrganizationJsonLd } from "@/components/JsonLd";
+import { OrganizationJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 
 const geistSans = Geist({
@@ -45,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${geistSans.variable} ${sora.variable} h-full antialiased`}>
       <head>
         <OrganizationJsonLd />
+        <LocalBusinessJsonLd />
       </head>
       <body className="min-h-full flex flex-col">
         <Analytics />

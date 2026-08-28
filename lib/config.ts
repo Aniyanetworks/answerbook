@@ -16,11 +16,20 @@ export const siteConfig = {
   domain: publicEnv(process.env.NEXT_PUBLIC_SITE_DOMAIN, "ansghlsaas.com"),
   url: publicEnv(process.env.NEXT_PUBLIC_SITE_URL, "https://ansghlsaas.com"),
 
-  // TODO: replace with real business contact details before launch.
   contact: {
     phone: publicEnv(process.env.NEXT_PUBLIC_CONTACT_PHONE, "(437) 777-8844"),
     email: publicEnv(process.env.NEXT_PUBLIC_CONTACT_EMAIL, "connect@answerandbook.ca"),
-    addressLine: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_ADDRESS, "Ontario, Canada"),
+    // Full single-line address, used for display (footer, contact cards,
+    // legal pages).
+    addressLine: publicEnv(
+      process.env.NEXT_PUBLIC_BUSINESS_ADDRESS,
+      "40 Anglerock Drive, Cambridge, Ontario N1T 1L8, Canada",
+    ),
+    // Split out for LocalBusiness structured data, which expects each part
+    // of a PostalAddress as its own field rather than one combined string.
+    addressStreet: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_STREET, "40 Anglerock Drive"),
+    addressCity: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_CITY, "Cambridge"),
+    addressPostalCode: publicEnv(process.env.NEXT_PUBLIC_BUSINESS_POSTAL_CODE, "N1T 1L8"),
   },
 
   social: {

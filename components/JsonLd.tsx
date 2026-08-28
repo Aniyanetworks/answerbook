@@ -65,10 +65,11 @@ export function LocalBusinessJsonLd() {
     email: siteConfig.contact.email,
     address: {
       "@type": "PostalAddress",
+      streetAddress: siteConfig.contact.addressStreet,
+      addressLocality: siteConfig.contact.addressCity,
       addressRegion: "ON",
+      postalCode: siteConfig.contact.addressPostalCode,
       addressCountry: "CA",
-      // TODO: replace with a real street address once available.
-      streetAddress: siteConfig.contact.addressLine,
     },
     areaServed: "Ontario, Canada",
   };
