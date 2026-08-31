@@ -17,11 +17,13 @@ export interface BlogPost {
   status?: "draft" | "published";
 }
 
-// ISR window (seconds) for the blog list/post pages — set as `export const
-// revalidate` in those page files (Supabase's client calls the global fetch
-// under the hood, but Next 15+ no longer caches fetch by default, so page-
-// level revalidate is the reliable way to get the same ISR behavior the old
-// REST-based fetch had).
+// ISR window (seconds) for the blog list/post pages. Documents the value —
+// it is NOT imported and used as `export const revalidate = ...` in those
+// page files, because Next.js requires route segment config exports to be
+// static literals parsed at build time (it never executes the import), so
+// referencing this constant there fails the build with "Invalid segment
+// configuration export detected." Each page hardcodes `revalidate = 300`
+// itself instead; keep both in sync by hand if this ever changes.
 export const BLOG_REVALIDATE_SECONDS = 300;
 
 interface BlogPostRow {

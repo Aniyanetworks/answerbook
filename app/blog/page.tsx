@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import BlogCard from "@/components/BlogCard";
 import PageGlowBackground from "@/components/PageGlowBackground";
-import { getPosts, BLOG_REVALIDATE_SECONDS, type BlogPost } from "@/lib/blog";
+import { getPosts, type BlogPost } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 
-export const revalidate = BLOG_REVALIDATE_SECONDS;
+// Next.js route segment config exports must be static literals — they're
+// parsed at build time without executing imports, so this can't reference
+// BLOG_REVALIDATE_SECONDS from lib/blog.ts even though that's the "real"
+// source of truth. Keep this in sync with that constant by hand.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Blog",
