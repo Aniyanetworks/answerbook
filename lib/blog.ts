@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export interface BlogPost {
   title: string;
@@ -10,6 +11,10 @@ export interface BlogPost {
   author: string;
   seoTitle?: string;
   seoDescription?: string;
+  // Only populated by getPostByIdForPreview — the public getPosts/
+  // getPostBySlug never return anything but published posts, so this would
+  // always just say "published" there and isn't worth carrying.
+  status?: "draft" | "published";
 }
 
 // ISR window (seconds) for the blog list/post pages — set as `export const
@@ -30,6 +35,7 @@ interface BlogPostRow {
   author: string;
   meta_title: string | null;
   meta_description: string | null;
+  status?: "draft" | "published";
 }
 
 const POST_COLUMNS =
@@ -46,6 +52,7 @@ function rowToPost(row: BlogPostRow): BlogPost {
     author: row.author,
     seoTitle: row.meta_title ?? undefined,
     seoDescription: row.meta_description ?? undefined,
+    status: row.status,
   };
 }
 
@@ -72,6 +79,23 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     .select(POST_COLUMNS)
     .eq("slug", slug)
     .eq("status", "published")
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return rowToPost(data);
+}
+
+// Fetches a post by id regardless of status (draft or published), using the
+// service-role client so RLS doesn't hide unpublished rows. Used only by
+// the /blog/preview/[id] route — never call this from anything reachable
+// without the preview token check that route performs.
+export async function getPostByIdForPreview(id: string): Promise<BlogPost | null> {
+  if (!supabaseAdmin) return null;
+
+  const { data, error } = await supabaseAdmin
+    .from("blog_posts")
+    .select(`${POST_COLUMNS}, status`)
+    .eq("id", id)
     .maybeSingle();
 
   if (error || !data) return null;
