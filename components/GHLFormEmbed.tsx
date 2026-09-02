@@ -23,6 +23,12 @@ interface GHLFormEmbedProps {
   title: string;
   height?: number;
   className?: string;
+  // Distinguishes this embed's DOM id when the same form renders more than
+  // once on one page (e.g. the always-present inline form plus a popup copy
+  // of it) — form_embed.js keys its resize/reveal logic off that id, so two
+  // simultaneous instances with the same id would collide and only the
+  // first one in the DOM would work correctly.
+  instanceId?: string;
 }
 
 export default function GHLFormEmbed({
@@ -30,6 +36,7 @@ export default function GHLFormEmbed({
   title,
   height = 720,
   className = "",
+  instanceId,
 }: GHLFormEmbedProps) {
   const [query, setQuery] = useState("");
 
@@ -78,6 +85,10 @@ export default function GHLFormEmbed({
   const shortId = formId.startsWith("http")
     ? (formId.split("/").filter(Boolean).pop() ?? formId)
     : formId;
+  // Only the element id / data-layout-iframe-id need to be unique per DOM
+  // instance — data-form-id must stay the real, unmodified GHL form id, or
+  // form_embed.js won't correctly match this iframe to that form.
+  const domId = `inline-${shortId}${instanceId ? `-${instanceId}` : ""}`;
 
   return (
     <div className={className}>
@@ -85,14 +96,14 @@ export default function GHLFormEmbed({
         src={src}
         title={title}
         style={{ width: "100%", height, border: "none", borderRadius: "0.75rem" }}
-        id={`inline-${shortId}`}
+        id={domId}
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
         data-activation-type="alwaysActivated"
         data-deactivation-type="neverDeactivate"
         data-form-name={title}
         data-height={height}
-        data-layout-iframe-id={`inline-${shortId}`}
+        data-layout-iframe-id={domId}
         data-form-id={shortId}
       />
       <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />

@@ -7,6 +7,7 @@ import PricingCallout from "@/components/PricingCallout";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
+import FormPopup from "@/components/FormPopup";
 import PageGlowBackground from "@/components/PageGlowBackground";
 import { FAQPageJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
@@ -155,6 +156,7 @@ export default function HvacPage() {
     <>
       <PageGlowBackground />
       <FAQPageJsonLd items={faqs} />
+      <FormPopup formId={siteConfig.ghl.formIds.hvac} formTitle="HVAC Get Started Form" />
       <ServiceJsonLd
         name="HVAC Missed-Call & Lead Follow-Up Automation"
         description="Missed-call recovery, speed-to-lead follow-up, appointment reminders, and review automation for Ontario HVAC installers and service companies."

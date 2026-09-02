@@ -9,6 +9,7 @@ import PricingCallout from "@/components/PricingCallout";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
+import FormPopup from "@/components/FormPopup";
 import PageGlowBackground from "@/components/PageGlowBackground";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for when the "Built for your trade" section below is re-enabled
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
@@ -183,6 +184,7 @@ export default function HomePage() {
     <>
       <PageGlowBackground />
       <FAQPageJsonLd items={faqs} />
+      <FormPopup formId={siteConfig.ghl.formIds.home} formTitle="Get Started Form" />
       <Hero
         variant="home"
         headlineLines={["Stop losing jobs to", "missed calls and slow follow-up."]}

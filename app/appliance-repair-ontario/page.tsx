@@ -7,6 +7,7 @@ import PricingCallout from "@/components/PricingCallout";
 import FAQAccordion from "@/components/FAQAccordion";
 import CTASection from "@/components/CTASection";
 import GetStartedSection from "@/components/GetStartedSection";
+import FormPopup from "@/components/FormPopup";
 import PageGlowBackground from "@/components/PageGlowBackground";
 import { FAQPageJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
@@ -155,6 +156,10 @@ export default function ApplianceRepairPage() {
     <>
       <PageGlowBackground />
       <FAQPageJsonLd items={faqs} />
+      <FormPopup
+        formId={siteConfig.ghl.formIds.applianceRepair}
+        formTitle="Appliance Repair Get Started Form"
+      />
       <ServiceJsonLd
         name="Appliance Repair Missed-Call & Lead Follow-Up Automation"
         description="Missed-call recovery, speed-to-lead follow-up, and review automation for Ontario appliance repair technicians — diagnostics and in-home or in-shop repair."
