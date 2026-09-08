@@ -55,6 +55,12 @@ export const siteConfig = {
   },
 
   analytics: {
+    // Google Tag Manager container ID (starts with GTM-). When set, the GTM
+    // container loads and you configure GA4/Ads/Pixel tags inside GTM itself —
+    // independent of the ga4Id/googleAdsId/metaPixelId scripts below, which
+    // load their gtag/fbq snippets directly. Set one path or the other, not
+    // both, to avoid double-counting.
+    gtmId: publicEnv(process.env.NEXT_PUBLIC_GTM_ID),
     ga4Id: publicEnv(process.env.NEXT_PUBLIC_GA4_ID),
     metaPixelId: publicEnv(process.env.NEXT_PUBLIC_META_PIXEL_ID),
     googleAdsId: publicEnv(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),

@@ -4,10 +4,24 @@ import { siteConfig } from "@/lib/config";
 // Loads GA4, Meta Pixel, and Google Ads only when their env-provided IDs are
 // present, so the site works before any tracking IDs are issued.
 export default function Analytics() {
-  const { ga4Id, metaPixelId, googleAdsId } = siteConfig.analytics;
+  const { gtmId, ga4Id, metaPixelId, googleAdsId } = siteConfig.analytics;
 
   return (
     <>
+      {gtmId && (
+        // GTM's own snippet asks to sit "as high in the <head> as possible";
+        // afterInteractive is the next/script equivalent and matches what
+        // @next/third-parties' GoogleTagManager does. The matching <noscript>
+        // iframe lives in app/layout.tsx, right after the opening <body>.
+        <Script id="gtm-init" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${gtmId}');`}
+        </Script>
+      )}
+
       {ga4Id && (
         <>
           <Script

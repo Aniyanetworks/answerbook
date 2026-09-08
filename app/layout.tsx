@@ -48,6 +48,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LocalBusinessJsonLd />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* GTM <noscript> fallback — must be immediately after <body>. The main
+            GTM script is loaded via next/script in <Analytics />. */}
+        {siteConfig.analytics.gtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${siteConfig.analytics.gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         <Analytics />
         <MotionConfig reducedMotion="user">
           <Header />
