@@ -65,6 +65,17 @@ html {
   font-size: 112.5%;
 }
 
+/* Smooth in-page scrolling for anchor links (Header's logo/#get-started,
+   Hero's "See How It Works" -> #how-it-works, etc.) and the back-to-top
+   button's scrollTo call. Gated behind prefers-reduced-motion — an instant
+   jump is friendlier than a forced scroll animation for anyone who's asked
+   the OS for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

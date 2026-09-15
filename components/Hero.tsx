@@ -1,9 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeUp, staggerContainer } from "@/lib/motion";
+import { motion, type Variants } from "framer-motion";
+import { fadeUp, staggerContainer, easeOut } from "@/lib/motion";
 import HeroShowcaseImage from "@/components/HeroShowcaseImage";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
+
+// Per-word headline reveal — each word flips up out of a slight 3D tilt
+// while blurred, rather than the line fading in as one flat block. Needs
+// `perspective` on an ancestor for rotateX to read as a flip instead of a
+// flat squish (set on the <h1> itself, below).
+const wordReveal: Variants = {
+  hidden: { opacity: 0, y: 24, rotateX: -60, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.5, ease: easeOut },
+  },
+};
 
 export type HeroVariant = "home" | "hvac" | "appliance" | "plumbing";
 
@@ -86,14 +101,26 @@ export default function Hero({
 
             <h1
               className={`${isSplit ? "" : "mt-6"} text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl`}
+              style={{ perspective: 800 }}
             >
               {headlineLines.map((line, i) => (
                 <motion.span
                   key={line}
-                  variants={fadeUp}
+                  variants={staggerContainer(0.035, 0)}
                   className={`block ${i === headlineLines.length - 1 ? "text-accent" : ""}`}
                 >
-                  {line}
+                  {line.split(" ").map((word, wi, words) => (
+                    <Fragment key={wi}>
+                      <motion.span variants={wordReveal} className="inline-block">
+                        {word}
+                      </motion.span>
+                      {/* Real space character, not CSS margin — margin-only
+                          spacing between the word spans made innerText (and
+                          therefore copy-paste, and some screen readers) run
+                          every word together with no gap. */}
+                      {wi < words.length - 1 ? " " : ""}
+                    </Fragment>
+                  ))}
                 </motion.span>
               ))}
             </h1>

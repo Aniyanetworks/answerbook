@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import BackToTopButton from "@/components/BackToTopButton";
 import { OrganizationJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/config";
 
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               background can bleed up behind the floating nav — see Hero.tsx. */}
           <main className="flex-1 pt-28">{children}</main>
           <Footer />
+          <BackToTopButton />
         </MotionConfig>
       </body>
     </html>
