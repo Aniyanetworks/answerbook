@@ -32,25 +32,25 @@ export default function PricingCallout({
       >
         <div className="overflow-hidden rounded-[calc(1rem-2px)] bg-navy-900">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="p-8 sm:p-10">
+            <div className="p-6 sm:p-10">
               <p className="text-sm font-semibold uppercase tracking-wide text-accent">
                 Let&apos;s Talk
               </p>
               <p className="mt-2 text-3xl font-bold text-white sm:text-4xl">
                 One flat rate. No surprises.
               </p>
-              <p className="mt-3 text-sm text-slate-400">
+              <p className="mt-3 text-base leading-relaxed text-slate-400 sm:text-sm">
                 Pricing depends on your business and what&apos;s already in
                 place — we&apos;ll walk through it together on a quick call.
               </p>
               <a
                 href={ctaHref}
-                className="mt-8 inline-block rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+                className="mt-8 flex min-h-13 w-full items-center justify-center rounded-full bg-accent px-6 py-3 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover sm:inline-flex sm:min-h-0 sm:w-auto sm:text-sm"
               >
                 {ctaLabel}
               </a>
             </div>
-            <div className="border-t border-white/10 bg-navy-800 p-8 sm:border-l sm:border-t-0 sm:p-10">
+            <div className="border-t border-white/10 bg-navy-800 p-6 sm:p-10 md:border-l md:border-t-0">
               <p className="text-sm font-semibold text-white">
                 Everything included:
               </p>
@@ -65,7 +65,7 @@ export default function PricingCallout({
                   <motion.li
                     key={item}
                     variants={fadeUp}
-                    className="flex items-start gap-2.5 text-sm text-slate-300"
+                    className="flex items-start gap-2.5 text-base leading-snug text-slate-300 sm:text-sm"
                   >
                     <svg
                       className="mt-0.5 h-4 w-4 shrink-0 text-accent"

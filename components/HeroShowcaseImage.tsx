@@ -3,10 +3,10 @@
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
-import { fadeUp, easeOut } from "@/lib/motion";
+import { easeOut, staggerContainer } from "@/lib/motion";
 
-// Mount-triggered (via the parent stagger's propagated hidden/visible state),
-// not whileInView/viewport — this section is always near the top of the
+// Mount-triggered (initial/animate on this component's root, with a delay
+// matching its slot in the hero's CSS stagger), not whileInView/viewport — this section is always near the top of the
 // page anyway, and whileInView's IntersectionObserver didn't reliably fire
 // here (confirmed via testing: the image stayed permanently clipped on a
 // short mobile viewport), likely interacting badly with the 3D
@@ -39,6 +39,8 @@ interface HeroShowcaseImageProps {
   width: number;
   height: number;
   badges: ShowcaseBadge[];
+  /** Seconds to wait before the reveal, so it lands after the hero text. */
+  delay?: number;
 }
 
 // Floating badges only ever get up to 3 — position classes are hand-picked
@@ -56,6 +58,7 @@ export default function HeroShowcaseImage({
   width,
   height,
   badges,
+  delay = 0,
 }: HeroShowcaseImageProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -81,7 +84,9 @@ export default function HeroShowcaseImage({
 
   return (
     <motion.div
-      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer(0, delay)}
       className="relative mx-auto mt-8 max-w-lg px-6 lg:mx-0 lg:mt-0 lg:max-w-none lg:px-0"
       style={{ perspective: 1200 }}
     >
@@ -103,9 +108,15 @@ export default function HeroShowcaseImage({
             alt={alt}
             width={width}
             height={height}
-            sizes="(min-width: 640px) 42rem, 100vw"
+            // Rendered width: half the max-w-6xl container on lg+, the
+            // max-w-lg column (minus its px-6) on sm–md, and the viewport
+            // minus page + column padding on phones.
+            sizes="(min-width: 1024px) 620px, (min-width: 640px) 520px, calc(100vw - 5rem)"
             className="h-auto w-full object-cover"
-            priority
+            // Below the CTA on phones, so it shouldn't compete with the hero
+            // text/fonts for bandwidth — but it's still in or near the first
+            // screen, so load it right away rather than lazily.
+            loading="eager"
           />
           {/* Ties the photo into the brand palette instead of it sitting as
               a plain rectangle — a warm-toned photo would otherwise clash

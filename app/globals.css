@@ -76,6 +76,16 @@ html {
   }
 }
 
+html,
+body {
+  /* Safety net against sideways scroll on phones: some scroll-reveal
+     animations (e.g. ProblemSolution's slide-in-from-right) start their
+     element translated past the right edge until it scrolls into view.
+     `clip` rather than `hidden` so it doesn't create a scroll container —
+     that would break position: sticky and the fixed header/glow layers. */
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -87,6 +97,54 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading), var(--font-sans), sans-serif;
+}
+
+/* Hero entrance — CSS rather than framer-motion so the headline, subhead,
+   and CTA are painted (and tappable) on first render instead of waiting for
+   JS to hydrate. Same motion as the old framer variants: each headline word
+   flips up out of a 3D tilt while blurred, other blocks fade up. Each
+   element sets its own --delay inline (see Hero.tsx) for the stagger.
+   `both` fill-mode holds the "from" state during the delay. */
+@keyframes hero-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotateX(-60deg);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-word {
+  display: inline-block;
+  animation: hero-word-in 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+  animation-delay: var(--delay, 0s);
+}
+
+.hero-fade-up {
+  animation: hero-fade-up 0.4s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+  animation-delay: var(--delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word,
+  .hero-fade-up {
+    animation: none;
+  }
 }
 
 @keyframes gradient-shift {

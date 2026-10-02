@@ -59,7 +59,7 @@ export default function FeatureGrid({
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.07)}
-          className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {features.map((feature) => (
             <motion.div
@@ -75,7 +75,7 @@ export default function FeatureGrid({
               <h3 className="mt-4 text-lg font-semibold text-white">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              <p className="mt-2 text-base leading-relaxed text-slate-400 sm:text-sm">
                 {feature.description}
               </p>
             </motion.div>

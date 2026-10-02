@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/lib/config";
+import { PhoneLink, EmailLink } from "@/components/ContactLinks";
 
 const niches = [
   { href: "/hvac-ontario", label: "HVAC Contractors" },
@@ -24,12 +25,14 @@ export default function Footer() {
               <Image
                 src="/wordmark-dark.png"
                 alt="answer&book"
-                width={2299}
-                height={479}
+                // Intrinsic size ~= rendered size (h-8), so next/image's
+                // srcset tops out at a few hundred px instead of 3840px.
+                width={173}
+                height={36}
                 className="h-8 w-auto"
               />
             </Link>
-            <p className="mt-3 text-sm leading-relaxed text-slate-400">
+            <p className="mt-3 text-base leading-relaxed text-slate-400 sm:text-sm">
               Missed-call recovery, speed-to-lead follow-up, and review
               automation for Ontario home-service contractors.
             </p>
@@ -62,10 +65,10 @@ export default function Footer() {
 
           <div>
             <p className="text-sm font-semibold text-white">Company</p>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-2 space-y-1">
               {company.map((c) => (
                 <li key={c.href}>
-                  <Link href={c.href} className="text-sm text-slate-400 transition-colors hover:text-accent">
+                  <Link href={c.href} className="inline-block py-1.5 text-base text-slate-400 transition-colors hover:text-accent sm:text-sm">
                     {c.label}
                   </Link>
                 </li>
@@ -76,10 +79,14 @@ export default function Footer() {
           <div>
             <p className="text-sm font-semibold text-white">Contact</p>
             {/* TODO: confirm final business phone, email, and address before launch. */}
-            <ul className="mt-3 space-y-2 text-sm text-slate-400">
-              <li>{siteConfig.contact.phone}</li>
-              <li>{siteConfig.contact.email}</li>
-              <li>{siteConfig.contact.addressLine}</li>
+            <ul className="mt-2 space-y-1 text-base text-slate-400 sm:text-sm">
+              <li>
+                <PhoneLink className="inline-block py-1.5 transition-colors hover:text-accent" />
+              </li>
+              <li>
+                <EmailLink className="inline-block break-all py-1.5 transition-colors hover:text-accent" />
+              </li>
+              <li className="py-1.5">{siteConfig.contact.addressLine}</li>
             </ul>
           </div>
         </div>

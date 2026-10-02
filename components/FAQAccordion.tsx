@@ -46,11 +46,11 @@ export default function FAQAccordion({
               <div key={item.question}>
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
                   aria-expanded={isOpen}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                 >
-                  <span className="text-sm font-semibold text-white sm:text-base">
+                  <span className="text-base font-semibold text-white">
                     {item.question}
                   </span>
                   <motion.svg
@@ -77,7 +77,7 @@ export default function FAQAccordion({
                       transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-slate-400">
+                      <p className="px-5 pb-5 text-base leading-relaxed text-slate-400 sm:px-6 sm:text-sm">
                         {item.answer}
                       </p>
                     </motion.div>

@@ -39,6 +39,7 @@ export default function GHLFormEmbed({
   instanceId,
 }: GHLFormEmbedProps) {
   const [query, setQuery] = useState("");
+  const [interacted, setInteracted] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -51,6 +52,23 @@ export default function GHLFormEmbed({
 
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from the external URL on mount, not derivable during render (SSR has no window)
     setQuery(tracked.toString());
+  }, []);
+
+  // The iframe starts out lazy (see below) so GHL's scripts stay off the
+  // critical path for the first paint. But plain lazy-loading only starts
+  // fetching once the form is near the viewport — someone tapping a hero
+  // CTA would then jump straight to a "Loading form…" box for a few
+  // seconds. So switch it to eager on the visitor's first scroll/touch/tap:
+  // the hero has already painted by then, and the form is ready by the
+  // time they reach it.
+  useEffect(() => {
+    const events = ["scroll", "touchstart", "pointerdown", "keydown"] as const;
+    const activate = () => {
+      setInteracted(true);
+      events.forEach((e) => window.removeEventListener(e, activate));
+    };
+    events.forEach((e) => window.addEventListener(e, activate, { passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, activate));
   }, []);
 
   if (!formId) {
@@ -91,11 +109,28 @@ export default function GHLFormEmbed({
   const domId = `inline-${shortId}${instanceId ? `-${instanceId}` : ""}`;
 
   return (
-    <div className={className}>
+    // minHeight + the placeholder below cover the gap while the (lazy) iframe
+    // loads: form_embed.js keeps the iframe hidden and out of flow until GHL
+    // has rendered the form, which would otherwise collapse this box to 0px
+    // right as someone lands here from a "#get-started" CTA.
+    <div className={`relative ${className}`} style={{ minHeight: height }}>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 flex flex-col items-center gap-3 pt-24 text-sm text-muted"
+      >
+        <span className="h-7 w-7 animate-spin rounded-full border-2 border-border border-t-navy-700" />
+        Loading form…
+      </div>
       <iframe
         src={src}
         title={title}
-        style={{ width: "100%", height, border: "none", borderRadius: "0.75rem" }}
+        // The form pulls in ~1.5 MB of GHL + Cloudflare captcha scripts.
+        // Lazy until first interaction (see effect above), so that doesn't
+        // compete with the hero for bandwidth on a phone at page load.
+        // (The popup copy is on-screen when it mounts, so it loads at once.)
+        loading={interacted ? "eager" : "lazy"}
+        // Opaque so the loading placeholder behind it doesn't show through.
+        style={{ width: "100%", height, border: "none", borderRadius: "0.75rem", background: "#fff" }}
         id={domId}
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"

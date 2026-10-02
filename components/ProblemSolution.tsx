@@ -38,11 +38,11 @@ export default function ProblemSolution({
           )}
         </motion.div>
 
-        <div className="mt-14 space-y-4">
+        <div className="mt-10 space-y-4 sm:mt-14">
           {items.map((item) => (
             <div
               key={item.problem}
-              className="grid grid-cols-1 gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur-xl sm:grid-cols-2 sm:gap-8 sm:p-8"
+              className="grid grid-cols-1 gap-4 overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm backdrop-blur-xl sm:grid-cols-2 sm:gap-8 sm:p-8"
             >
               <motion.div
                 initial="hidden"

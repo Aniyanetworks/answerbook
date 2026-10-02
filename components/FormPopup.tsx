@@ -14,16 +14,12 @@ const REPEAT_INTERVAL_MS = 5 * 60 * 1000;
 interface FormPopupProps {
   formId: string;
   formTitle: string;
-  heading?: string;
-  subheading?: string;
 }
 
-export default function FormPopup({
-  formId,
-  formTitle,
-  heading = "Ready to get started?",
-  subheading = "Tell us about your business and we'll reach out to get your automation system live.",
-}: FormPopupProps) {
+// Shows only the GHL form itself — no heading/subheading of our own, since
+// the form carries its own title and a second header above it just pushed
+// the fields and submit button further down on a phone screen.
+export default function FormPopup({ formId, formTitle }: FormPopupProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -71,12 +67,12 @@ export default function FormPopup({
           key="form-popup-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label={heading}
+          aria-label={formTitle}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-90 flex items-center justify-center bg-navy-950/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-90 flex items-center justify-center bg-navy-950/70 px-3 pb-3 pt-16 backdrop-blur-sm sm:p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) setOpen(false);
           }}
@@ -86,25 +82,28 @@ export default function FormPopup({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.25 }}
-            className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+            className="relative w-full max-w-lg"
           >
+            {/* On phones the close button sits just above the card, since
+                the card has no padding there and an overlaid button would
+                cover the form's own title. From sm: up it moves back inside
+                the card's top-right corner (the card is padded there). */}
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close"
-              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-navy-500 transition-colors hover:bg-surface hover:text-navy-900"
+              className="absolute -top-13 right-0 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy-800 shadow-lg transition-colors hover:bg-surface hover:text-navy-900 sm:right-3 sm:top-3 sm:shadow-none"
             >
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2}>
                 <path d="M5 5l10 10M15 5L5 15" strokeLinecap="round" />
               </svg>
             </button>
 
-            <h3 className="pr-8 text-xl font-bold tracking-tight text-navy-900 sm:text-2xl">
-              {heading}
-            </h3>
-            <p className="mt-2 text-sm text-muted">{subheading}</p>
-
-            <div className="mt-6">
+            {/* No padding on phones — the GHL form pads itself, and a second
+                layer of padding here left the fields in a narrow strip.
+                dvh so the mobile browser's address bar doesn't cover the
+                bottom of the form; minus room for the close button above. */}
+            <div className="max-h-[calc(90dvh-3.5rem)] overflow-y-auto rounded-2xl bg-white shadow-2xl sm:max-h-[90dvh] p-0 md:p-0">
               <GHLFormEmbed formId={formId} title={formTitle} instanceId="popup" height={600} />
             </div>
           </motion.div>

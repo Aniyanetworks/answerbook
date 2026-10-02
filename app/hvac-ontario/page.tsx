@@ -167,15 +167,15 @@ export default function HvacPage() {
         headlineLines={["Never miss another", "no-heat or no-AC call again."]}
         subhead="Automated missed-call recovery, fast quote follow-up, and review requests built specifically for Ontario HVAC installers and service companies."
         // checklist={features.slice(0, 4).map((f) => f.title)}
-        primaryCtaLabel="Get Started"
+        primaryCtaLabel="Book Free Missed-Call Audit"
         primaryCtaHref="#get-started"
         secondaryCtaLabel="See How It Works"
         secondaryCtaHref="#how-it-works"
         showcaseImage={{
           src: "/hvac-technician.jpg",
           alt: "HVAC technician servicing an outdoor condenser unit",
-          width: 1600,
-          height: 1274,
+          width: 1280,
+          height: 1019,
           badges: [
             { label: "24/7 Response", icon: <PhoneIcon width={14} height={14} /> },
             { label: "No-Heat Emergency Ready", icon: <SnowflakeIcon width={14} height={14} /> },
@@ -232,7 +232,7 @@ export default function HvacPage() {
       <CTASection
         heading="Ready to stop losing HVAC jobs to slow follow-up?"
         subheading="Join Ontario HVAC contractors automating their lead response."
-        ctaLabel="Get Started"
+        ctaLabel="Book Free Missed-Call Audit"
         ctaHref="#get-started"
       />
     </>

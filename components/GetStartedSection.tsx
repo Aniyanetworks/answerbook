@@ -25,25 +25,45 @@ export default function GetStartedSection({
 }: GetStartedSectionProps) {
   return (
     <section id="get-started" className="bg-grid-dark px-4 py-20 sm:px-6">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
-        <Reveal>
+      {/* Three grid children instead of two columns so phones get
+          heading -> form -> details: anyone tapping a "#get-started" CTA
+          lands on the form right away instead of scrolling past bullets and
+          contact cards first. On lg+ the intro and details stack in the left
+          column and the form spans both rows on the right, as before. */}
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-0">
+        <Reveal className="lg:self-end">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             {heading}
           </h2>
           <p className="mt-4 max-w-lg text-lg text-slate-300">{subheading}</p>
+        </Reveal>
 
+        {/* No inner padding on phones: the GHL form already pads itself, so
+            wrapping it in a padded card too squeezed the fields into a
+            narrow column with a wide white gutter on each side. */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={fadeUp}
+          className="overflow-hidden rounded-2xl border border-border bg-white shadow-xl shadow-navy-950/30 sm:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center"
+        >
+          <GHLFormEmbed formId={formId} title={formTitle} />
+        </motion.div>
+
+        <Reveal className="lg:self-start">
           <motion.ul
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={staggerContainer(0.08, 0.1)}
-            className="mt-8 space-y-3"
+            className="space-y-3 lg:mt-8"
           >
             {bullets.map((bullet) => (
               <motion.li
                 key={bullet}
                 variants={fadeUp}
-                className="flex items-start gap-2.5 text-sm text-slate-200"
+                className="flex items-start gap-2.5 text-base leading-relaxed text-slate-200 sm:text-sm"
               >
                 <svg
                   className="mt-0.5 h-5 w-5 shrink-0 text-accent"
@@ -81,7 +101,7 @@ export default function GetStartedSection({
                 <span className="block text-xs font-semibold uppercase tracking-wide text-slate-400">
                   Call Us
                 </span>
-                <span className="block text-sm font-medium text-white">
+                <span className="block break-words text-base font-medium text-white sm:text-sm">
                   {siteConfig.contact.phone}
                 </span>
               </span>
@@ -99,7 +119,7 @@ export default function GetStartedSection({
                 <span className="block text-xs font-semibold uppercase tracking-wide text-slate-400">
                   Email Us
                 </span>
-                <span className="block text-sm font-medium text-white">
+                <span className="block break-words text-base font-medium text-white sm:text-sm">
                   {siteConfig.contact.email}
                 </span>
               </span>
@@ -116,23 +136,13 @@ export default function GetStartedSection({
                 <span className="block text-xs font-semibold uppercase tracking-wide text-slate-400">
                   Based in
                 </span>
-                <span className="block text-sm font-medium text-white">
+                <span className="block break-words text-base font-medium text-white sm:text-sm">
                   {siteConfig.contact.addressLine}
                 </span>
               </span>
             </motion.div>
           </motion.div>
         </Reveal>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeUp}
-          className="rounded-2xl border border-border bg-white p-6 shadow-xl shadow-navy-950/30 sm:p-8"
-        >
-          <GHLFormEmbed formId={formId} title={formTitle} />
-        </motion.div>
       </div>
     </section>
   );

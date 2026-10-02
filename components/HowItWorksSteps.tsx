@@ -42,7 +42,7 @@ export default function HowItWorksSteps({
           whileInView="visible"
           viewport={viewportOnce}
           variants={staggerContainer(0.12)}
-          className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-6"
+          className="mt-10 grid grid-cols-1 gap-10 sm:mt-14 sm:grid-cols-3 sm:gap-6"
         >
           {steps.map((step, index) => (
             <motion.div key={step.title} variants={fadeUp} className="relative text-center">
@@ -56,7 +56,7 @@ export default function HowItWorksSteps({
                 />
               )}
               <h3 className="mt-5 text-lg font-semibold text-white">{step.title}</h3>
-              <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-400">
+              <p className="mx-auto mt-2 max-w-sm text-base leading-relaxed text-slate-400 sm:max-w-xs sm:text-sm">
                 {step.description}
               </p>
             </motion.div>

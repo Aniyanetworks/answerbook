@@ -39,9 +39,12 @@ export default function Header() {
           <Image
             src="/wordmark-light.png"
             alt="answer&book"
-            width={2301}
-            height={481}
-            priority
+            // Intrinsic size ~= rendered size (sm:h-7). With the original
+            // 2301px width here and no `sizes`, next/image served the logo
+            // at w=3840 on every page load.
+            width={151}
+            height={32}
+            preload
             className="h-6 w-auto sm:h-7"
           />
         </Link>

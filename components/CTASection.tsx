@@ -25,7 +25,7 @@ export default function CTASection({
         whileInView="visible"
         viewport={viewportOnce}
         variants={fadeUp}
-        className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6"
+        className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20"
       >
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
           {heading}
@@ -37,7 +37,7 @@ export default function CTASection({
         )}
         <a
           href={ctaHref}
-          className="mt-8 inline-block rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+          className="mt-8 flex min-h-13 w-full items-center justify-center rounded-full bg-accent px-8 py-3 text-base font-semibold text-accent-foreground transition-colors hover:bg-accent-hover sm:inline-flex sm:w-auto"
         >
           {ctaLabel}
         </a>
